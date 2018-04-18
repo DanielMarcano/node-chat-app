@@ -6,9 +6,144 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Chat App</title>
 </head>
+<style media="screen">
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: Helvetica, Arial, sans-serif;
+  }
+  * {
+    font-weight: 100;
+  }
+
+  .fucsia {
+    color: #F72092;
+  }
+
+  header {
+    text-align: center;
+  }
+
+  .chat-box {
+    position: relative;
+    height: 50vh;
+    width: 80vw;
+    border: 1px solid #F72092;
+    margin: 0 auto;
+  }
+
+  #message {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 98%;
+    height: 5vh;
+    border: none;
+    padding: 0;
+    padding-right: 1%;
+    padding-left: 1%;
+    border-top: 1px solid black;
+  }
+
+  #writing {
+    position: absolute;
+    bottom: 5vh;
+    margin: 0;
+    padding: 1%;
+    display: none;
+  }
+
+  #message:focus {
+    outline: 0;
+  }
+
+  #send {
+    position: relative;
+    bottom: 0;
+    right: 0;
+    height: 5vh;
+    width: 10vw;
+    appearance: none;
+    border-radius: none;
+    border: none;
+    border-left: 1px solid black;
+    overflow: hidden;
+  }
+
+  #send:hover {
+    cursor: pointer;
+    color: #F72092;
+  }
+
+  #send:focus {
+    color: #F72092;
+  }
+
+  #send:focus {
+    outline: 0;
+  }
+
+  label[for="send"] {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+  }
+
+  form {
+    position: relative;
+    height: 100%;
+  }
+
+</style>
 <body>
 <header>
-  <h1>It's time for our defective moderns to start spilling those beans</h1>
+  <h1 class="header-title">The Defective <span class="fucsia">Moderns</span></h1>
 </header>
+<section class="chat-box">
+  <p id="writing">Writing...</p>
+  <form action="">
+    <label for="message"><input type="text" value="" id="message"></label>
+    <label for="send"><button type="submit" id="send">Click me</button></label>
+  </form>
+</section>
+<script src="/socket.io/socket.io.js"></script>
+<script type="text/javascript">
+  let socket = io();
+  socket.on('connect', () => {
+    console.log('Connected to server');
+  });
+  socket.on('disconnect', () => {
+    console.log('Disconnected from server');
+  });
+  let message = document.getElementById("message");
+  let writing = document.getElementById("writing");
+  let send = document.getElementById("send");
+
+  send.addEventListener('click', event => {
+    event.preventDefault();
+  });
+
+  message.addEventListener('focus', event => {
+    toggleWritingIcon(false);
+  });
+
+  message.addEventListener('input', () => {
+    toggleWritingIcon(false);
+    writing.style.setProperty('--myColor', 'red');
+  });
+
+  message.addEventListener('blur', () => {
+    toggleWritingIcon(false);
+  });
+
+  const toggleWritingIcon = invert => {
+    if (message.value === '') {
+      writing.style.display = invert ? 'block' : 'none';
+    } else {
+      writing.style.display = invert ? 'none' : 'block';
+    }
+  }
+
+</script>
 </body>
 </html>
