@@ -107,43 +107,6 @@
   </form>
 </section>
 <script src="/socket.io/socket.io.js"></script>
-<script type="text/javascript">
-  let socket = io();
-  socket.on('connect', () => {
-    console.log('Connected to server');
-  });
-  socket.on('disconnect', () => {
-    console.log('Disconnected from server');
-  });
-  let message = document.getElementById("message");
-  let writing = document.getElementById("writing");
-  let send = document.getElementById("send");
-
-  send.addEventListener('click', event => {
-    event.preventDefault();
-  });
-
-  message.addEventListener('focus', event => {
-    toggleWritingIcon(false);
-  });
-
-  message.addEventListener('input', () => {
-    toggleWritingIcon(false);
-    writing.style.setProperty('--myColor', 'red');
-  });
-
-  message.addEventListener('blur', () => {
-    toggleWritingIcon(false);
-  });
-
-  const toggleWritingIcon = invert => {
-    if (message.value === '') {
-      writing.style.display = invert ? 'block' : 'none';
-    } else {
-      writing.style.display = invert ? 'none' : 'block';
-    }
-  }
-
-</script>
+<script src="/js/index.js"></script>
 </body>
 </html>
