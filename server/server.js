@@ -8,11 +8,14 @@ const app = express();
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
 const _ = require('lodash');
+const { generateMessage } = require('./utils/message');
 
 app.use(express.static(path.join(publicPath)));
 
 io.on('connection', socket => {
-  console.log('New user connected');
+  socket.broadcast.emit('newMessage', generateMessage('Admin', 'New user joined!'));
+  socket.emit('newMessage', generateMessage('Admin', 'Greetings, new user'));
+
   socket.on('disconnect', () => {
     console.log('User has disconnected');
   });
