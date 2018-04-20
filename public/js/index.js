@@ -1,15 +1,22 @@
 let socket = io();
 
-socket.on('newMessage', function(message) {
-  console.log('You got a new message', message);
-});
-
+let messages = document.getElementById("messages");
 let message = document.getElementById("message");
 let writing = document.getElementById("writing");
 let send = document.getElementById("send");
 
-send.addEventListener('click', function(event) {
-  event.preventDefault();
+socket.on('newMessage', function(message) {
+  let li = document.createElement('li');
+  let text = document.createTextNode(`${message.from}: ${message.text}`);
+  li.appendChild(text);
+
+  let shouldScroll = messages.scrollTop + messages.clientHeight === messages.scrollHeight;
+
+  messages.appendChild(li);
+
+  if (shouldScroll) {
+    messages.scrollTop = messages.scrollHeight;
+  }
 });
 
 message.addEventListener('focus', function(event) {
@@ -32,3 +39,24 @@ const toggleWritingIcon = invert => {
     writing.style.display = invert ? 'none' : 'block';
   }
 };
+
+$(function() {
+  $('#message-form').submit(function(e) {
+    e.preventDefault();
+    if (message.value === '') {
+      message.focus();
+      return false;
+    }
+    socket.emit('createMessage', {
+      from: 'User',
+      text: message.value
+    }, function() {
+      message.value = '';
+      message.blur();
+      message.focus();
+    });
+    $(send).click(function(e) {
+      send.style.color = 'black';
+    });
+  });
+});

@@ -64,6 +64,7 @@
     height: 5vh;
     width: 10vw;
     appearance: none;
+    background-color: white;
     border-radius: none;
     border: none;
     border-left: 1px solid black;
@@ -92,21 +93,42 @@
   form {
     position: relative;
     height: 100%;
+    z-index: 0;
+  }
+
+  #messages {
+    position: absolute;
+    max-height: 38vh;
+    width: 90%;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    z-index: 1;
+  }
+
+  ::-webkit-scrollbar {
+    width: 0.5em;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: #F71092;
   }
 
 </style>
 <body>
 <header>
-  <h1 class="header-title">The Defective <span class="fucsia">Moderns</span></h1>
+  <h1 class="header-title">The Fallen <span class="fucsia">Ones</span></h1>
 </header>
 <section class="chat-box">
+  <ol id="messages"></ol>
   <p id="writing">Writing...</p>
-  <form action="">
-    <label for="message"><input type="text" value="" id="message"></label>
+  <form id="message-form">
+    <label for="message"><input type="text" value="" id="message" name="message" placeholder="There was a time in which I would actually talk to people"/></label>
     <label for="send"><button type="submit" id="send">Click me</button></label>
   </form>
 </section>
 <script src="/socket.io/socket.io.js"></script>
+<script src="/js/libs/jquery-3.3.1.min.js"></script>
 <script src="/js/index.js"></script>
 </body>
 </html>

@@ -19,10 +19,11 @@ io.on('connection', socket => {
   socket.on('disconnect', () => {
     console.log('User has disconnected');
   });
-  socket.on('createMessage', function(message) {
+  socket.on('createMessage', function(message, callback) {
     let newMessage = _.pick(message, ['from', 'text']);
     newMessage.createdAt = new Date().getTime();
     io.emit('newMessage', newMessage);
+    callback();
   });
 
 });
