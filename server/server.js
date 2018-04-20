@@ -8,7 +8,7 @@ const app = express();
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
 const _ = require('lodash');
-const { generateMessage } = require('./utils/message');
+const { generateMessage, generateLocationMessage } = require('./utils/message');
 
 app.use(express.static(path.join(publicPath)));
 
@@ -19,6 +19,11 @@ io.on('connection', socket => {
   socket.on('disconnect', () => {
     console.log('User has disconnected');
   });
+
+  socket.on('createLocationMessage', ({ latitude, longitude }) => {
+    io.emit('newLocationMessage', generateLocationMessage('Admin', latitude, longitude));
+  });
+
   socket.on('createMessage', function(message, callback) {
     let newMessage = _.pick(message, ['from', 'text']);
     newMessage.createdAt = new Date().getTime();
