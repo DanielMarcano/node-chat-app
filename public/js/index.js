@@ -4,6 +4,7 @@ let messages = document.getElementById("messages");
 let message = document.getElementById("message");
 let writing = document.getElementById("writing");
 let send = document.getElementById("send");
+let locationButton = document.getElementById('send-location');
 
 socket.on('newMessage', function(message) {
   let li = document.createElement('li');
@@ -63,8 +64,6 @@ const toggleWritingIcon = invert => {
 
 $(function() {
 
-  message.focus();
-
   $('#message-form').submit(function(e) {
     e.preventDefault();
     if (message.value === '') {
@@ -84,13 +83,14 @@ $(function() {
     });
   });
 
-  let locationButton = document.getElementById('send-location');
-
   locationButton.addEventListener('click', e => {
     e.preventDefault();
     if (!navigator.geolocation) {
       return alert('Your browser does not support geolocation...');
     } else {
+      locationButton.innerHTML = 'Sending Location';
+      locationButton.setAttribute('disabled', '');
+      locationButton.className = 'disabled';
       navigator.geolocation.getCurrentPosition(positionHandler, errorHandler);
     }
   });
@@ -99,11 +99,16 @@ $(function() {
     socket.emit('createLocationMessage', {
       latitude: position.coords.latitude,
       longitude: position.coords.longitude
+    }, function() {
+      locationButton.innerHTML = 'Send Location';
+      locationButton.className = '';
+      locationButton.removeAttribute('disabled');
     });
   };
 
   const errorHandler = error => {
-    console.log('Error', error);
+    locationButton.innerHTML = 'Send Location';
+    alert('Unable to fetch location.');
   };
 
 });

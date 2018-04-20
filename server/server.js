@@ -20,8 +20,9 @@ io.on('connection', socket => {
     console.log('User has disconnected');
   });
 
-  socket.on('createLocationMessage', ({ latitude, longitude }) => {
+  socket.on('createLocationMessage', ({ latitude, longitude }, enableButton) => {
     io.emit('newLocationMessage', generateLocationMessage('Admin', latitude, longitude));
+    enableButton();
   });
 
   socket.on('createMessage', function(message, callback) {

@@ -13,6 +13,7 @@ input[type="email"], input[type="url"], input[type="search"], input[type="tel"],
 
 * {
   box-shadow: unset;
+  border-radius: 0;
   outline: unset;
   border: unset;
   -webkit-appearance: none;
@@ -37,7 +38,7 @@ input[type="email"], input[type="url"], input[type="search"], input[type="tel"],
 
 .chat__sidebar {
   padding: 16px;
-  flex: 0 0 10vw;
+  flex: 0 0 20vw;
   flex-grow: 1;
   border-right: 1px solid #F72092;
 }
@@ -48,7 +49,7 @@ input[type="email"], input[type="url"], input[type="search"], input[type="tel"],
 }
 
 .chat__main {
-  flex-grow: 4;
+  flex: 0 0 80vw;
   display: flex;
   flex-flow: column nowrap;
   justify-content: space-between;
@@ -85,7 +86,7 @@ input[type="email"], input[type="url"], input[type="search"], input[type="tel"],
 #send-location, #send {
   border: 1px solid #F72092;
   height: 5vh;
-  background-color: white; 
+  background-color: white;
 }
 
 #message-form {
@@ -105,9 +106,10 @@ label[for="send"] {
 }
 
 #message {
+  border-radius: none;
   height: 5vh;
   width: 100%;
-  padding: 16px;
+  padding: 0 16px;
 }
 
 
@@ -125,6 +127,10 @@ label[for="send"] {
   flex: 0 0 20%;
   max-height: inherit;
   cursor: pointer;
+}
+
+.disabled {
+  border: 1px solid grey !important;
 }
 
 @media (max-width: 600px) {
@@ -171,6 +177,7 @@ label[for="send"] {
   #message {
     height: 5vh;
     width: 100%;
+    border-radius: 0;
   }
 
   #send {
