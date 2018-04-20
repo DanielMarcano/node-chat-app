@@ -7,8 +7,9 @@ let send = document.getElementById("send");
 let locationButton = document.getElementById('send-location');
 
 socket.on('newMessage', function(message) {
+  let formattedTime = moment(message.createdAt).format('h:mm a');
   let li = document.createElement('li');
-  let text = document.createTextNode(`${message.from}: ${message.text}`);
+  let text = document.createTextNode(`${message.from} ${formattedTime}: ${message.text}`);
   li.appendChild(text);
 
   let shouldScroll = messages.scrollTop + messages.clientHeight === messages.scrollHeight;
@@ -21,8 +22,9 @@ socket.on('newMessage', function(message) {
 });
 
 socket.on('newLocationMessage', function(message) {
+  let formattedTime = moment(message.createdAt).format('h:mm a');
   let li = document.createElement('li');
-  let from = document.createTextNode(`${message.from}: `);
+  let from = document.createTextNode(`${message.from} ${formattedTime}: `);
   li.appendChild(from);
 
   let url = document.createElement('a');
@@ -86,12 +88,14 @@ $(function() {
   locationButton.addEventListener('click', e => {
     e.preventDefault();
     if (!navigator.geolocation) {
+      message.focus();
       return alert('Your browser does not support geolocation...');
     } else {
       locationButton.innerHTML = 'Sending Location';
       locationButton.setAttribute('disabled', '');
       locationButton.className = 'disabled';
       navigator.geolocation.getCurrentPosition(positionHandler, errorHandler);
+      message.focus();
     }
   });
 
