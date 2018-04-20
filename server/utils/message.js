@@ -45,7 +45,7 @@ exports.locationMessageTemplate = `
   </section>
   <section class="message__body">
     <p>
-      <a href="{{url}}">My Location</a>
+      <a href="{{url}}">My current location</a>
     </p>
   </section>
  </li>

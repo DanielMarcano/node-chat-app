@@ -8,7 +8,13 @@ let locationButton = document.getElementById('send-location');
 
 socket.on('newMessage', function(message) {
 
-  let shouldScroll = messages.scrollTop + messages.clientHeight === messages.scrollHeight;
+  let lastElementHeight;
+
+  if (document.querySelector('li.message')) {
+    lastElementHeight = document.querySelector('li.message:last-child').clientHeight;
+  }
+
+  let shouldScroll = messages.scrollTop + messages.clientHeight + lastElementHeight >= messages.scrollHeight;
 
   messages.insertAdjacentHTML('beforeend', message);
 
