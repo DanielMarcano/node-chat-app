@@ -8,27 +8,34 @@ const app = express();
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
 const _ = require('lodash');
-const { generateMessage, generateLocationMessage } = require('./utils/message');
+const { generateMessage, generateLocationMessage, messageTemplate, locationMessageTemplate } = require('./utils/message');
+const mustache = require('mustache');
 
 app.use(express.static(path.join(publicPath)));
 
 io.on('connection', socket => {
-  socket.broadcast.emit('newMessage', generateMessage('Admin', 'New user joined!'));
-  socket.emit('newMessage', generateMessage('Admin', 'Greetings, new user'));
+
+  let newUser = generateMessage('Admin', 'New user joined!');
+  let greeting = generateMessage('Admin', 'Greetings, new user');
+
+  socket.broadcast.emit('newMessage', mustache.to_html(messageTemplate, newUser));
+  socket.emit('newMessage', mustache.to_html(messageTemplate, greeting));
 
   socket.on('disconnect', () => {
     console.log('User has disconnected');
   });
 
   socket.on('createLocationMessage', ({ latitude, longitude }, enableButton) => {
-    io.emit('newLocationMessage', generateLocationMessage('Admin', latitude, longitude));
+    let locationMessage = generateLocationMessage('Admin', latitude, longitude);
+    let template = mustache.render(locationMessageTemplate, locationMessage);
+    io.emit('newMessage', template);
     enableButton();
   });
 
-  socket.on('createMessage', function(message, callback) {
-    let newMessage = _.pick(message, ['from', 'text']);
-    newMessage.createdAt = new Date().getTime();
-    io.emit('newMessage', newMessage);
+  socket.on('createMessage', function({ from, text }, callback) {
+    let userMessage = generateMessage(from, text);
+    let template = mustache.to_html(messageTemplate, userMessage);
+    io.emit('newMessage', template);
     callback();
   });
 

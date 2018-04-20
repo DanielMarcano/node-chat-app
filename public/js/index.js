@@ -7,36 +7,10 @@ let send = document.getElementById("send");
 let locationButton = document.getElementById('send-location');
 
 socket.on('newMessage', function(message) {
-  let formattedTime = moment(message.createdAt).format('h:mm a');
-  let li = document.createElement('li');
-  let text = document.createTextNode(`${message.from} ${formattedTime}: ${message.text}`);
-  li.appendChild(text);
 
   let shouldScroll = messages.scrollTop + messages.clientHeight === messages.scrollHeight;
 
-  messages.appendChild(li);
-
-  if (shouldScroll) {
-    messages.scrollTop = messages.scrollHeight;
-  }
-});
-
-socket.on('newLocationMessage', function(message) {
-  let formattedTime = moment(message.createdAt).format('h:mm a');
-  let li = document.createElement('li');
-  let from = document.createTextNode(`${message.from} ${formattedTime}: `);
-  li.appendChild(from);
-
-  let url = document.createElement('a');
-  url.setAttribute('href', message.url);
-  url.setAttribute('target', '_blank');
-  let urlMsg = document.createTextNode('My current location');
-  url.appendChild(urlMsg);
-  li.appendChild(url);
-
-  let shouldScroll = messages.scrollTop + messages.clientHeight === messages.scrollHeight;
-
-  messages.appendChild(li);
+  messages.insertAdjacentHTML('beforeend', message);
 
   if (shouldScroll) {
     messages.scrollTop = messages.scrollHeight;
