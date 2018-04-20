@@ -62,6 +62,9 @@ const toggleWritingIcon = invert => {
 };
 
 $(function() {
+
+  message.focus();
+
   $('#message-form').submit(function(e) {
     e.preventDefault();
     if (message.value === '') {

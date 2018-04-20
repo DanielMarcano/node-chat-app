@@ -1,0 +1,293 @@
+/* ::-webkit-scrollbar {
+  width: 0.5em;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: #F71092;
+} */
+
+select, textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"],
+input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"],
+input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"] { font-size: 16px; }
+
+* {
+  box-shadow: unset;
+  outline: unset;
+  border: unset;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-weight: 300;
+  font-size: .95rem;
+}
+
+.chat {
+  display: flex;
+  flex-flow: row nowrap;
+  height: 100vh;
+  width: 100vw;
+}
+
+.chat__sidebar {
+  padding: 16px;
+  flex: 0 0 10vw;
+  flex-grow: 1;
+  border-right: 1px solid #F72092;
+}
+
+#users {
+  width: inherit;
+  padding: 16px;
+}
+
+.chat__main {
+  flex-grow: 4;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-between;
+}
+
+#messages {
+  list-style-position: inside;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  max-height: 85vh;
+  min-height: 85vh;
+  padding-left: 2em;
+  padding-top: 1em;
+  list-style-type: none;
+}
+
+#writing {
+  min-height: 5vh;
+  padding-left: 2em;
+  display: none;
+  position: fixed;
+  bottom: 9vh;
+}
+
+.chat__footer {
+  height: calc(10%);
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-around;
+  align-items: center;
+  border-top: 1px solid black;
+}
+
+#send-location, #send {
+  border: 1px solid #F72092;
+  height: 5vh;
+  background-color: white; 
+}
+
+#message-form {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  flex: 0 0 70%;
+  align-items: center;
+}
+
+label[for="message"] {
+  flex: 0 0 70%;
+}
+
+label[for="send"] {
+  flex: 0 0 20%;
+}
+
+#message {
+  height: 5vh;
+  width: 100%;
+  padding: 16px;
+}
+
+
+#message {
+  flex-grow: 1;
+  border: 1px solid black;
+}
+
+#send {
+  width: 100%;
+  cursor: pointer;
+}
+
+#send-location {
+  flex: 0 0 20%;
+  max-height: inherit;
+  cursor: pointer;
+}
+
+@media (max-width: 600px) {
+
+  label {
+    flex: 0 0 auto;
+  }
+
+  #writing {
+    bottom: 13vh;
+  }
+
+  #messages {
+    min-height: 81vh;
+    max-height: 81vh;
+  }
+
+  .chat__sidebar {
+    display: none;
+  }
+
+  .chat__footer {
+    height: 14vh;
+    flex-flow: column nowrap;
+    justify-content: unset;
+  }
+
+  label[for="message"] {
+    flex: unset;
+  }
+
+  #message-form {
+    height: 10vh;
+    justify-content: unset;
+    flex-flow: column nowrap;
+    align-items: stretch;
+    width: 100%;
+  }
+
+  #messages {
+    height: 5vh;
+  }
+
+  #message {
+    height: 5vh;
+    width: 100%;
+  }
+
+  #send {
+    height: 5vh;
+    width: 100%;
+  }
+
+  #send-location {
+    height: 5vh;
+    width: 100%;
+    flex: unset;
+  }
+}
+
+/* * {
+  font-weight: 100;
+}
+
+.fucsia {
+  color: #F72092;
+}
+
+header {
+  text-align: center;
+}
+
+.chat-box {
+  position: relative;
+  border: 1px solid #F72092;
+  margin: 0 auto;
+}
+
+#message {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 98%;
+  height: 5vh;
+  border: none;
+  padding: 0;
+  padding-right: 1%;
+  padding-left: 1%;
+  border-top: 1px solid black;
+}
+
+#writing {
+  position: absolute;
+  bottom: 5vh;
+  margin: 0;
+  padding: 1%;
+  display: none;
+}
+
+#message:focus {
+  outline: 0;
+}
+
+#send {
+  position: relative;
+  bottom: 0;
+  right: 0;
+  height: 5vh;
+  width: 10vw;
+  appearance: none;
+  background-color: white;
+  border-radius: none;
+  border: none;
+  border-left: 1px solid black;
+  overflow: hidden;
+}
+
+#send:hover {
+  cursor: pointer;
+  color: #F72092;
+}
+
+#send:focus {
+  color: #F72092;
+}
+
+#send:focus {
+  outline: 0;
+}
+
+label[for="send"] {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+
+form {
+  position: relative;
+  height: 100%;
+  z-index: 0;
+}
+
+#messages {
+  position: absolute;
+  max-height: 38vh;
+  width: 90%;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  z-index: 1;
+}
+
+#send-location {
+  position: absolute;
+  bottom: -6vh;
+  left: -1px;
+  width: 100.3%;
+  height: 5vh;
+  cursor: pointer;
+  -webkit-appearance: none;
+  background-color: white !important;
+  outline: none;
+}
+
+#send-location:hover {
+  color: #F72092;
+} */

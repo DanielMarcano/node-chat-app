@@ -6,144 +6,27 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Chat App</title>
 </head>
-<style media="screen">
-  body {
-    margin: 0;
-    padding: 0;
-    font-family: Helvetica, Arial, sans-serif;
-  }
-  * {
-    font-weight: 100;
-  }
+<link rel="stylesheet" href="/css/index.css">
+<body class="chat">
 
-  .fucsia {
-    color: #F72092;
-  }
-
-  header {
-    text-align: center;
-  }
-
-  .chat-box {
-    position: relative;
-    height: 50vh;
-    width: 80vw;
-    border: 1px solid #F72092;
-    margin: 0 auto;
-  }
-
-  #message {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    width: 98%;
-    height: 5vh;
-    border: none;
-    padding: 0;
-    padding-right: 1%;
-    padding-left: 1%;
-    border-top: 1px solid black;
-  }
-
-  #writing {
-    position: absolute;
-    bottom: 5vh;
-    margin: 0;
-    padding: 1%;
-    display: none;
-  }
-
-  #message:focus {
-    outline: 0;
-  }
-
-  #send {
-    position: relative;
-    bottom: 0;
-    right: 0;
-    height: 5vh;
-    width: 10vw;
-    appearance: none;
-    background-color: white;
-    border-radius: none;
-    border: none;
-    border-left: 1px solid black;
-    overflow: hidden;
-  }
-
-  #send:hover {
-    cursor: pointer;
-    color: #F72092;
-  }
-
-  #send:focus {
-    color: #F72092;
-  }
-
-  #send:focus {
-    outline: 0;
-  }
-
-  label[for="send"] {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-  }
-
-  form {
-    position: relative;
-    height: 100%;
-    z-index: 0;
-  }
-
-  #messages {
-    position: absolute;
-    max-height: 38vh;
-    width: 90%;
-    overflow-x: hidden;
-    overflow-y: scroll;
-    z-index: 1;
-  }
-
-  ::-webkit-scrollbar {
-    width: 0.5em;
-  }
-
-  ::-webkit-scrollbar-thumb {
-    border-radius: 10px;
-    background-color: #F71092;
-  }
-
-  #send-location {
-    position: absolute;
-    bottom: -6vh;
-    left: -1px;
-    width: 100.3%;
-    height: 5vh;
-    cursor: pointer;
-    -webkit-appearance: none;
-    background-color: white !important;
-    outline: none;
-  }
-
-  #send-location:hover {
-    color: #F72092;
-  }
-
-</style>
-<body>
-<header>
-  <h1 class="header-title">The Fallen <span class="fucsia">Ones</span></h1>
-</header>
-<section class="chat-box">
-  <ol id="messages"></ol>
-  <p id="writing">Writing...</p>
-  <form id="message-form">
-    <label for="message"><input type="text" value="" id="message" name="message" placeholder="There was a time in which I would actually talk to people"/></label>
-    <label for="send"><button type="submit" id="send">Click me</button></label>
-  </form>
-  <button id="send-location">Send Location</button>
+<section class="chat__sidebar">
+  <h3>People</h3>
+  <section id="users"></section>
 </section>
+
+<section class="chat__main">
+  <ol id="messages" class="chat__messages"></ol>
+  <p id="writing">Writing...</p>
+
+  <section class="chat__footer">
+    <form id="message-form">
+      <label for="message"><input type="text" value="" id="message" name="message" placeholder="Hello fellas!" autocomplete="off"/></label>
+      <label for="send"><button type="submit" id="send">Send</button></label>
+    </form>
+    <button id="send-location" type="submit">Send Location</button>
+  </section>
+</section>
+
 <script src="/socket.io/socket.io.js"></script>
 <script src="/js/libs/jquery-3.3.1.min.js"></script>
 <script src="/js/index.js"></script>
