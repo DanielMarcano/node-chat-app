@@ -1,4 +1,4 @@
-let socket = io({ transports: ['websocket'], upgrade: false });
+let socket = io();
 
 const messages = document.getElementById("messages");
 const message = document.getElementById("message");

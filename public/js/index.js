@@ -1,8 +1,9 @@
-const socket = io({ transports: ['websocket'], upgrade: false });
+const socket = io();
 
 const rooms = document.getElementById('rooms');
 const room = document.getElementById('room');
 const color = document.getElementById('color');
+const joinForm = document.getElementById('join-form');
 
 socket.on('updateRooms', function(roomOptions) {
   rooms.innerHTML = roomOptions;
@@ -53,6 +54,10 @@ picker.addEventListener('click', function(e) {
     colors[key].childNodes[1].style.backgroundColor = color;
     colors[key].addEventListener('click', colorsEventListener);
   });
+});
+
+joinForm.addEventListener('submit', function(e) {
+  socket.close();
 });
 
 const colorsEventListener = function(event) {

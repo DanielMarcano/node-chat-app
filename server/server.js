@@ -6,7 +6,10 @@ const PORT = process.env.PORT || 3000;
 
 const app = express();
 const http = require('http').Server(app);
-const io = require('socket.io')(http);
+const io = require('socket.io')(http, {
+  pingInterval: 5000,
+  pingTimeout: 10000
+});
 const _ = require('lodash');
 const { generateMessage, generateLocationMessage, messageTemplate, locationMessageTemplate } = require('./utils/message');
 const { usersTemplate } = require('./utils/users');
