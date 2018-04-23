@@ -2,35 +2,30 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Chat App</title>
+  <title>Join | Chat App</title>
+  <link rel="stylesheet" href="/css/index.css">
 </head>
-<link rel="stylesheet" href="/css/index.css">
-<body class="chat">
-
-<section class="chat__sidebar">
-  <h3>People</h3>
-  <section id="users"></section>
-</section>
-
-<section class="chat__main">
-  <ol id="messages" class="chat__messages"></ol>
-  <p id="writing">Writing...</p>
-
-  <section class="chat__footer">
-    <form id="message-form">
-      <label for="message"><input type="text" value="" id="message" name="message" placeholder="Hello fellas!" autocomplete="off" autofocus/></label>
-      <label for="send"><button type="submit" id="send">Send</button></label>
+<body>
+  <div class="layer"></div>
+  <section class="join-form">
+    <form id='join-form' action="chat.html">
+      <div class="form-field">
+        <h1>Join Chat</h1>
+      </div>
+      <div class="form-field">
+        <label for="username">Username</label>
+        <input type="text" placeholder="JohnDoe" name="username" id="username" autocomplete="off" autofocus>
+      </div>
+      <div class="form-field">
+        <label for="room">Room</label>
+        <input type="text" placeholder="The Red Room" name="room" id="room" autocomplete="off">
+      </div>
+      <div class="form-field">
+        <input type="submit" value="Join">
+      </div>
     </form>
-    <button id="send-location" type="submit">Send Location</button>
   </section>
-</section>
-
-<script src="/socket.io/socket.io.js"></script>
-<script src="/js/libs/jquery-3.3.1.min.js"></script>
-<script src="/js/libs/mustache.js"></script>
-<script src="/js/libs/moment.js"></script>
-<script src="/js/index.js"></script>
 </body>
 </html>

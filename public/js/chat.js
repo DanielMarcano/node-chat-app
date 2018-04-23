@@ -1,10 +1,26 @@
-let socket = io();
+let socket = io({ transports: ['websocket'], upgrade: false });
 
-let messages = document.getElementById("messages");
-let message = document.getElementById("message");
-let writing = document.getElementById("writing");
-let send = document.getElementById("send");
-let locationButton = document.getElementById('send-location');
+const messages = document.getElementById("messages");
+const message = document.getElementById("message");
+const writing = document.getElementById("writing");
+const send = document.getElementById("send");
+const locationButton = document.getElementById('send-location');
+const users = document.getElementById('users');
+
+socket.on('updateUsernames', function(usernames) {
+  users.innerHTML = usernames;
+  users.scrollTop = users.scrollHeight;
+});
+
+socket.on('connect', function() {
+  let params = $.deparam(window.location.search);
+  socket.emit('join', params, function(err) {
+    if (err) {
+      alert(err);
+      window.location.href = '/';
+    }
+  });
+});
 
 socket.on('newMessage', function(message) {
 

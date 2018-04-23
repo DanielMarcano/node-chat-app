@@ -1,17 +1,21 @@
 const moment = require('moment');
+const mustache = require('mustache');
 
-exports.generateMessage = (from, text) => {
-  return {
+exports.createMessage = (from, text) => {
+  let message = {
     from,
     text,
     createdAt: moment().valueOf(),
     format() {
       return moment(this.createdAt).format('h:mm a');
-    },
-    secondFormat: function() {
-      return moment(this.createdAt).format('h:mm a');
     }
   };
+  return message;
+};
+
+exports.generateMessage = (from, text) => {
+  let message = this.createMessage(from, text);
+  return mustache.to_html(this.messageTemplate, message);
 };
 
 exports.messageTemplate = `
@@ -26,8 +30,8 @@ exports.messageTemplate = `
  </li>
 `;
 
-exports.generateLocationMessage = (from, latitude, longitude) => {
-  return {
+exports.createLocationMessage = (from, latitude, longitude) => {
+  let message = {
     from,
     url: `https://www.google.com/maps?q=${latitude},${longitude}`,
     createdAt: moment().valueOf(),
@@ -35,6 +39,12 @@ exports.generateLocationMessage = (from, latitude, longitude) => {
       return moment(this.createdAt).format('h:mm a');
     }
   };
+  return message;
+};
+
+exports.generateLocationMessage = (from, latitude, longitude) => {
+  let message = this.createLocationMessage(from, latitude, longitude);
+  return mustache.to_html(this.locationMessageTemplate, message);
 };
 
 exports.locationMessageTemplate = `

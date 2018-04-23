@@ -1,0 +1,246 @@
+select, textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"],
+input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"],
+input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"] { font-size: 16px; }
+
+* {
+  box-shadow: unset;
+  border-radius: 0;
+  outline: unset;
+  border: unset;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-weight: 300;
+  font-size: .95rem;
+}
+
+.chat {
+  display: flex;
+  flex-flow: row nowrap;
+  min-height: 100vh;
+  max-height: 100vh;
+  width: 100vw;
+}
+
+.chat__sidebar {
+  background-color: black;
+  color: white;
+  padding: 16px;
+  flex: 0 0 20vw;
+  flex-grow: 1;
+  border-right: 1px solid #F72092;
+}
+
+#users {
+  width: inherit;
+  margin-top: 2em;
+  height: 83.5vh;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.chat__main {
+  flex: 0 0 80vw;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-between;
+  max-width: 80vw;
+}
+
+.message {
+  display: flex;
+  flex-flow: column nowrap;
+  padding-bottom: 1em;
+}
+
+.message__title {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  flex: 1 1 50%;
+  padding-right: 2em;
+  padding-bottom: 6px;
+}
+
+.message__body {
+  flex: 1 1 50%;
+  width: 100%;
+  height: auto;
+  word-wrap: break-word;
+  padding-right: 2em;
+}
+
+.chat__sidebar h3 {
+  font-size: 2em;
+}
+
+.message h4 {
+  font-weight: bold;
+}
+
+span {
+  font-weight: lighter;
+  opacity: 0.5;
+}
+
+#messages {
+  list-style-position: inside;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  max-height: 85vh;
+  min-height: 85vh;
+  padding-left: 2em;
+  padding-top: 1em;
+  list-style-type: none;
+}
+
+#writing {
+  min-height: 5vh;
+  padding-left: 2em;
+  display: none;
+  position: fixed;
+  bottom: 9vh;
+}
+
+.chat__footer {
+  height: calc(10%);
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-around;
+  align-items: center;
+  border-top: 1px solid black;
+}
+
+#send-location, #send {
+  border: 1px solid #F72092;
+  height: 5vh;
+  background-color: white;
+}
+
+#message-form {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  flex: 0 0 70%;
+  align-items: center;
+}
+
+label[for="message"] {
+  flex: 0 0 70%;
+}
+
+label[for="send"] {
+  flex: 0 0 20%;
+}
+
+#message {
+  border-radius: none;
+  height: 5vh;
+  width: 100%;
+  padding: 0 16px;
+}
+
+
+#message {
+  flex-grow: 1;
+  border: 1px solid black;
+}
+
+#send {
+  width: 100%;
+  cursor: pointer;
+}
+
+#send-location {
+  flex: 0 0 20%;
+  max-height: inherit;
+  cursor: pointer;
+}
+
+.disabled {
+  border: 1px solid grey !important;
+}
+
+.user-list {
+  list-style: none;
+}
+
+.user {
+  font-size: 1.2em;
+  border: 1px solid #F72092;
+  margin-bottom: 1em;
+  padding: 0px 1em;
+  border-radius: 10px;
+  height: 3.5vh;
+}
+
+@media (max-width: 600px) {
+
+  .chat__main {
+    flex: 0 0 100vw;
+    max-width: 100vw;
+  }
+
+  label {
+    flex: 0 0 auto;
+  }
+
+  #writing {
+    bottom: 13vh;
+  }
+
+  #messages {
+    min-height: 81vh;
+    max-height: 81vh;
+  }
+
+  .chat__sidebar {
+    display: none;
+  }
+
+  .chat__footer {
+    height: 14vh;
+    flex-flow: column nowrap;
+    justify-content: unset;
+  }
+
+  label[for="message"] {
+    flex: unset;
+  }
+
+  #message-form {
+    height: 10vh;
+    justify-content: unset;
+    flex-flow: column nowrap;
+    align-items: stretch;
+    width: 100%;
+  }
+
+  #messages {
+    height: 5vh;
+  }
+
+  #message {
+    height: 5vh;
+    width: 100%;
+    border-radius: 0;
+  }
+
+  #send {
+    height: 5vh;
+    width: 100%;
+  }
+
+  #send-location {
+    height: 5vh;
+    width: 100%;
+    flex: unset;
+  }
+
+}

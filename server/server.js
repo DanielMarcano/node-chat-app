@@ -9,33 +9,46 @@ const http = require('http').Server(app);
 const io = require('socket.io')(http);
 const _ = require('lodash');
 const { generateMessage, generateLocationMessage, messageTemplate, locationMessageTemplate } = require('./utils/message');
+const { usersTemplate } = require('./utils/users');
 const mustache = require('mustache');
+const { users } = require('./utils/users');
 
 app.use(express.static(path.join(publicPath)));
 
 io.on('connection', socket => {
 
-  let newUser = generateMessage('Admin', 'New user joined!');
-  let greeting = generateMessage('Admin', 'Greetings, new user');
-
-  socket.broadcast.emit('newMessage', mustache.to_html(messageTemplate, newUser));
-  socket.emit('newMessage', mustache.to_html(messageTemplate, greeting));
-
   socket.on('disconnect', () => {
-    console.log('User has disconnected');
+    let user = users.removeUser(socket.id);
+    if (user) {
+      io.to(user.room).emit('newMessage', generateMessage('Admin', `${user.name} has left the chat!`));
+      users.removeUser(user.id);
+      io.to(user.room).emit('updateUsernames', users.usersTemplate(user.room));
+    }
+  });
+
+  socket.on('join', (params, errHandler) => {
+
+    users.removeUser(socket.id);
+    let user = users.addUser(socket.id, params['username'], params['room']);
+    if (typeof user !== 'object') return errHandler(user);
+
+    socket.join(user.room);
+    socket.broadcast.to(user.room).emit('newMessage', generateMessage('Admin', `${user.name} has joined!`));
+    socket.emit('newMessage', generateMessage('Admin', `${user.name}, welcome to our chat app!`));
+    io.to(user.room).emit('updateUsernames', users.usersTemplate(user.room));
+
+    errHandler();
   });
 
   socket.on('createLocationMessage', ({ latitude, longitude }, enableButton) => {
-    let locationMessage = generateLocationMessage('Admin', latitude, longitude);
-    let template = mustache.render(locationMessageTemplate, locationMessage);
-    io.emit('newMessage', template);
+    let user = users.getUser(socket.id);
+    io.to(user.room).emit('newMessage', generateLocationMessage(user.name, latitude, longitude));
     enableButton();
   });
 
   socket.on('createMessage', function({ from, text }, callback) {
-    let userMessage = generateMessage(from, text);
-    let template = mustache.to_html(messageTemplate, userMessage);
-    io.emit('newMessage', template);
+    let user = users.getUser(socket.id);
+    io.to(user.room).emit('newMessage', generateMessage(user.name, text));
     callback();
   });
 
