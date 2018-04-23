@@ -6,9 +6,9 @@ describe('Users', () => {
   beforeEach(() => {
 
     users.users = [
-      { id: '1', name: 'Daniel', room: 'red' },
-      { id: '2', name: 'Sarah', room: 'blue' },
-      { id: '3', name: 'Maria', room: 'red' }
+      { id: '1', name: 'Daniel', room: 'red', color: 'red' },
+      { id: '2', name: 'Sarah', room: 'blue', color: 'green' },
+      { id: '3', name: 'Maria', room: 'red', color: 'pink' }
     ];
   });
 
@@ -70,8 +70,8 @@ describe('Users', () => {
   describe('usersTemplate', () => {
     it('should return valid usersTemplate', () => {
       let usersTemplate = users.usersTemplate('red');
-      expect(usersTemplate).toMatch(new RegExp(`<li class="user">${users.users[0].name}</li>`));
-      expect(usersTemplate).toMatch(new RegExp(`<li class="user">${users.users[2].name}</li>`));
+      expect(usersTemplate).toMatch(new RegExp(`<li class="user" style="border-color: red">${users.users[0].name}</li>`));
+      expect(usersTemplate).toMatch(new RegExp(`<li class="user" style="border-color: pink">${users.users[2].name}</li>`));
     });
   });
 

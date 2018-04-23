@@ -1,9 +1,10 @@
 const moment = require('moment');
 const mustache = require('mustache');
 
-exports.createMessage = (from, text) => {
+exports.createMessage = (from, text, color) => {
   let message = {
     from,
+    color,
     text,
     createdAt: moment().valueOf(),
     format() {
@@ -13,15 +14,15 @@ exports.createMessage = (from, text) => {
   return message;
 };
 
-exports.generateMessage = (from, text) => {
-  let message = this.createMessage(from, text);
+exports.generateMessage = (from, text, color) => {
+  let message = this.createMessage(from, text, color);
   return mustache.to_html(this.messageTemplate, message);
 };
 
 exports.messageTemplate = `
 <li class="message">
   <section class="message__title">
-    <h4>{{from}}</h4>
+    <h4 style='color: {{color}}'>{{from}}</h4>
     <span>{{format}}</span>
   </section>
   <section class="message__body">
@@ -30,9 +31,10 @@ exports.messageTemplate = `
  </li>
 `;
 
-exports.createLocationMessage = (from, latitude, longitude) => {
+exports.createLocationMessage = (from, latitude, longitude, color) => {
   let message = {
     from,
+    color,
     url: `https://www.google.com/maps?q=${latitude},${longitude}`,
     createdAt: moment().valueOf(),
     format() {
@@ -42,15 +44,15 @@ exports.createLocationMessage = (from, latitude, longitude) => {
   return message;
 };
 
-exports.generateLocationMessage = (from, latitude, longitude) => {
-  let message = this.createLocationMessage(from, latitude, longitude);
+exports.generateLocationMessage = (from, latitude, longitude, color) => {
+  let message = this.createLocationMessage(from, latitude, longitude, color);
   return mustache.to_html(this.locationMessageTemplate, message);
 };
 
 exports.locationMessageTemplate = `
 <li class="message">
   <section class="message__title">
-    <h4>{{from}}</h4>
+    <h4 style='color: {{color}}'>{{from}}</h4>
     <span>{{format}}</span>
   </section>
   <section class="message__body">

@@ -61,7 +61,7 @@ body {
   display: flex;
   flex-flow: column nowrap;
   justify-content: center;
-  height: 40vh;
+  height: 45vh;
   min-width: 20vw;
   max-width: 80vw;
 }
@@ -79,6 +79,30 @@ body {
 
 .form-field:nth-child(1) {
     margin-bottom: 2em;
+}
+
+.form-field:last-child {
+    flex-flow: row nowrap;
+    padding-bottom: 1vh;
+}
+
+.picker {
+  position: fixed;
+  top: 0;
+  font-size: 2em;
+  right: 50%;
+  padding-top: 1rem;
+  transform: translate(50%, 0%);
+  height: 100vh;
+  width: 45vw;
+  background: linear-gradient(to bottom right, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.9) 100%);
+  z-index: 1;
+  border: 1px solid white;
+  transition: all 1s;
+}
+
+.picker h3 {
+  font-size: 2em;
 }
 
 input, select {
@@ -101,8 +125,71 @@ input::placeholder {
 input[type='submit'] {
   border: 1px solid #F72092;
   cursor: pointer;
+  align-self: flex-end;
+  height: 3vh;
 }
 
 input:disabled, select:disabled {
   opacity: 0.5;
+}
+
+.color:before {
+  content: 'choose me';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  color: white;
+  font-size: 1.2em;
+  font-variant: small-caps;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+}
+
+li:hover .color:before {
+  opacity: 1;
+}
+
+.color-picker {
+  display: none;
+  color: white;
+  list-style: none;
+  justify-content: space-evenly;
+  flex-flow: row wrap;
+  margin: 0 auto;
+  margin-top: 1rem;
+}
+
+.no-picker {
+  border: 1px solid white;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+li {
+  width: 10em;
+  margin-bottom: 2em;
+  position: relative;
+}
+
+li[data-color] p {
+  width: 10em;
+  height: 10em;
+  margin: 0 auto;
+  padding: 0;
+  padding-top: 10px;
+  cursor: pointer;
+}
+
+@media (max-width: 600px) {
+  .color-picker {
+    overflow-y: scroll;
+    display: none;
+    color: white;
+    list-style: none;
+    justify-content: space-evenly;
+    flex-flow: row wrap;
+    margin: 0 auto;
+    margin-top: 1rem;
+    max-height: 75vh;
+  }
 }

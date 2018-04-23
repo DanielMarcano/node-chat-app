@@ -24,5 +24,9 @@ exports.joinSchema = new validate({
     required: true,
     length: { min: 1 },
     type: 'string'
+  },
+  color: {
+    type: 'string',
+    length: { min: 1 }
   }
 });

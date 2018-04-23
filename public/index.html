@@ -19,8 +19,17 @@
         <input type="text" placeholder="JohnDoe" name="username" id="username" autocomplete="off" autofocus>
       </div>
       <div class="form-field">
+        <label for="color">Color</label>
+        <span id="selected-color"></span>
+        <section class="no-picker" id="picker">
+          <h3 id="color-name">Pick One</h3>
+            <ul class="color-picker" id="color-picker">
+            </ul>
+        </section>
+      </div>
+      <div class="form-field">
         <label for="room">Room</label>
-        <input type="text" placeholder="The Red Room" name="room" id="room" autocomplete="off">
+        <input type="text" placeholder="TheRedRoom" name="room" id="room" autocomplete="off">
       </div>
       <div class="form-field">
         <label for="rooms">Rooms</label>
@@ -31,9 +40,17 @@
       </div>
     </form>
   </section>
+  <script id="colors-template" type="text/template">
+    {{#colors}}
+    <li data-color="{{.}}">
+      <p class="color"></p>
+    </li>
+    {{/colors}}
+  </script>
   <script src="/socket.io/socket.io.js"></script>
   <script src="/js/libs/jquery-3.3.1.min.js"></script>
   <script src="/js/libs/deparam.js"></script>
+  <script src="/js/libs/mustache.js"></script>
   <script src="/js/index.js"></script>
 </body>
 </html>

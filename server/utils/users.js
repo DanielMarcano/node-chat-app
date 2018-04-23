@@ -9,8 +9,8 @@ const Users = class Users {
     this.rooms = [];
   }
 
-  addUser(id, name, room) {
-    let user = { id, name, room: room.toLowerCase() };
+  addUser(id, name, room, color) {
+    let user = { id, name, room: room.toLowerCase(), color };
     trimObject(user);
     let errs = joinSchema.validate(user);
 
@@ -42,7 +42,7 @@ const Users = class Users {
 
   getUserList(room) {
     let users = this.users.filter(user => user.room === room);
-    return users.map(user => user.name);
+    return users;
   }
 
   usersTemplate(room) {
@@ -79,7 +79,7 @@ const Users = class Users {
 const usersListTemplate = `
   <ul class="user-list">
     {{#users}}
-      <li class="user">{{.}}</li>
+      <li class="user" style="border-color: {{color}}">{{name}}</li>
     {{/users}}
   </ul>
 `;

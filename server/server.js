@@ -31,7 +31,7 @@ io.on('connection', socket => {
   socket.on('join', (params, errHandler) => {
 
     users.removeUser(socket.id);
-    let user = users.addUser(socket.id, params['username'], params['room']);
+    let user = users.addUser(socket.id, params['username'], params['room'], params['color']);
     if (typeof user !== 'object') return errHandler(user);
 
     socket.join(user.room);
@@ -45,13 +45,13 @@ io.on('connection', socket => {
 
   socket.on('createLocationMessage', ({ latitude, longitude }, enableButton) => {
     let user = users.getUser(socket.id);
-    io.to(user.room).emit('newMessage', generateLocationMessage(user.name, latitude, longitude));
+    io.to(user.room).emit('newMessage', generateLocationMessage(user.name, latitude, longitude, user.color));
     enableButton();
   });
 
   socket.on('createMessage', function({ text }, callback) {
     let user = users.getUser(socket.id);
-    io.to(user.room).emit('newMessage', generateMessage(user.name, text));
+    io.to(user.room).emit('newMessage', generateMessage(user.name, text, user.color));
     callback();
   });
 
