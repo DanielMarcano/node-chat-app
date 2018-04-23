@@ -50,7 +50,6 @@ body {
   justify-content: space-around;
   align-items: center;
   width: 50%;
-  height: 100vh;
   top: 50%;
   text-align: center;
   left: 50%;
@@ -60,39 +59,42 @@ body {
 #join-form {
   display: flex;
   flex-flow: column nowrap;
-  justify-content: center;
-  height: 45vh;
-  min-width: 20vw;
-  max-width: 80vw;
+  display: flex;
 }
 
 .form-field {
   display: flex;
-    flex-flow: column nowrap;
-    flex-basis: 8vh;
-    justify-content: space-around;
+  flex-flow: column nowrap;
+    /* flex-basis: 8vh; */
+  justify-content: space-around;
 }
 
 .form-field label {
   font-size: 1.2em;
 }
 
-.form-field:nth-child(1) {
+/* .form-field:nth-child(1) {
     margin-bottom: 2em;
-}
+} */
 
 .form-field:last-child {
-    flex-flow: row nowrap;
-    padding-bottom: 1vh;
+    margin-top: 1rem;
+}
+
+.form-field:nth-child(n+2):nth-child(-n+5) {
+  margin-bottom: 1rem;
+}
+
+.form-field:first-child {
+  margin-bottom: 1.5rem;
 }
 
 .picker {
   position: fixed;
-  top: 0;
   font-size: 2em;
   right: 50%;
   padding-top: 1rem;
-  transform: translate(50%, 0%);
+  transform: translate(50%, 2%);
   height: 100vh;
   width: 45vw;
   background: linear-gradient(to bottom right, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.9) 100%);
@@ -126,7 +128,6 @@ input[type='submit'] {
   border: 1px solid #F72092;
   cursor: pointer;
   align-self: flex-end;
-  height: 3vh;
 }
 
 input:disabled, select:disabled {
@@ -157,6 +158,7 @@ li:hover .color:before {
   flex-flow: row wrap;
   margin: 0 auto;
   margin-top: 1rem;
+  max-height: 71.5vh;
 }
 
 .no-picker {
@@ -182,7 +184,7 @@ li[data-color] p {
 
 @media (max-width: 600px) {
   .color-picker {
-    overflow-y: scroll;
+    overflow-y: auto;
     display: none;
     color: white;
     list-style: none;
@@ -190,6 +192,6 @@ li[data-color] p {
     flex-flow: row wrap;
     margin: 0 auto;
     margin-top: 1rem;
-    max-height: 75vh;
+    max-height: 71.5vh;
   }
 }

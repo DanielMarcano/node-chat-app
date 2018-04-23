@@ -18,7 +18,7 @@ socket.on('updateRooms', function(roomOptions) {
 });
 
 rooms.addEventListener('change', function(e) {
-  if (e.target.value !== 'Pick a room') {
+  if (e.target.value !== 'default') {
     room.setAttribute('disabled', '');
   } else {
     room.removeAttribute('disabled');
@@ -26,9 +26,10 @@ rooms.addEventListener('change', function(e) {
 });
 
 room.addEventListener('input', function(e) {
+  let options = document.getElementsByTagName('option');
   if (e.target.value.trim() !== '') {
     rooms.setAttribute('disabled', '');
-  } else {
+  } else if (options.length > 1) {
     rooms.removeAttribute('disabled');
   }
 });

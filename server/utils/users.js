@@ -85,7 +85,7 @@ const usersListTemplate = `
 `;
 
 const roomsOptionsTemplate = `
-  <option value="" default>Pick a room</option>
+  <option value="default" default>Pick a room</option>
   {{#rooms}}
   <option value={{.}}>{{.}}</option>
   {{/rooms}}
