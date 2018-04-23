@@ -57,14 +57,6 @@ body {
   transform: translate(-50%, -50%);
 }
 
-/* .log-in__title {
-  flex: 0 0 15vh;
-}
-
-.log-in__form {
-  flex: 0 0 15vh;
-} */
-
 #join-form {
   display: flex;
   flex-flow: column nowrap;
@@ -89,7 +81,7 @@ body {
     margin-bottom: 2em;
 }
 
-input {
+input, select {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
@@ -109,4 +101,8 @@ input::placeholder {
 input[type='submit'] {
   border: 1px solid #F72092;
   cursor: pointer;
+}
+
+input:disabled, select:disabled {
+  opacity: 0.5;
 }

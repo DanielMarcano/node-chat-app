@@ -17,12 +17,14 @@ app.use(express.static(path.join(publicPath)));
 
 io.on('connection', socket => {
 
+  io.emit('updateRooms', users.roomsTemplate());
+
   socket.on('disconnect', () => {
     let user = users.removeUser(socket.id);
     if (user) {
-      io.to(user.room).emit('newMessage', generateMessage('Admin', `${user.name} has left the chat!`));
-      users.removeUser(user.id);
       io.to(user.room).emit('updateUsernames', users.usersTemplate(user.room));
+      io.to(user.room).emit('newMessage', generateMessage('Admin', `${user.name} has left the chat!`));
+      io.emit('updateRooms', users.roomsTemplate());
     }
   });
 
@@ -36,6 +38,7 @@ io.on('connection', socket => {
     socket.broadcast.to(user.room).emit('newMessage', generateMessage('Admin', `${user.name} has joined!`));
     socket.emit('newMessage', generateMessage('Admin', `${user.name}, welcome to our chat app!`));
     io.to(user.room).emit('updateUsernames', users.usersTemplate(user.room));
+    io.emit('updateRooms', users.roomsTemplate());
 
     errHandler();
   });
@@ -46,7 +49,7 @@ io.on('connection', socket => {
     enableButton();
   });
 
-  socket.on('createMessage', function({ from, text }, callback) {
+  socket.on('createMessage', function({ text }, callback) {
     let user = users.getUser(socket.id);
     io.to(user.room).emit('newMessage', generateMessage(user.name, text));
     callback();

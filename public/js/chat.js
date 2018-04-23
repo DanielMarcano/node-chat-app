@@ -64,12 +64,11 @@ $(function() {
 
   $('#message-form').submit(function(e) {
     e.preventDefault();
-    if (message.value === '') {
+    if (message.value.trim() === '') {
       message.focus();
       return false;
     }
     socket.emit('createMessage', {
-      from: 'User',
       text: message.value
     }, function() {
       message.value = '';

@@ -75,4 +75,33 @@ describe('Users', () => {
     });
   });
 
+  describe('getRooms', () => {
+    it('should return a list of all the rooms', () => {
+      let rooms = users.getRooms();
+      expect(rooms).toEqual(['red', 'blue']);
+    });
+  });
+
+  describe('addRoom', () => {
+    it('should reject room with same name', () => {
+      users.addUser('4', 'Mateo', 'red');
+      expect(users.getRooms().length).toBe(2);
+    });
+    it('should add new room', () => {
+      users.addUser('4', 'Mateo', 'green');
+      expect(users.getRooms().length).toBe(3);
+    });
+  });
+
+  describe('removeRoom', () => {
+    it('should remove empty room', () => {
+      users.removeUser('2');
+      expect(users.getRooms().length).toBe(1);
+    });
+    it('should leave populated room', () => {
+      users.removeUser('3');
+      expect(users.getRooms().length).toBe(2);
+    });
+  });
+
 });

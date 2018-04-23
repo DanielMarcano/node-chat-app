@@ -23,9 +23,17 @@
         <input type="text" placeholder="The Red Room" name="room" id="room" autocomplete="off">
       </div>
       <div class="form-field">
+        <label for="rooms">Rooms</label>
+        <select name="room" id="rooms" disabled></select>
+      </div>
+      <div class="form-field">
         <input type="submit" value="Join">
       </div>
     </form>
   </section>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/js/libs/jquery-3.3.1.min.js"></script>
+  <script src="/js/libs/deparam.js"></script>
+  <script src="/js/index.js"></script>
 </body>
 </html>
