@@ -14,12 +14,18 @@ socket.on('updateUsernames', function(usernames) {
 
 socket.on('connect', function() {
   let params = $.deparam(window.location.search);
-  socket.emit('join', params, function(err) {
-    if (err) {
-      alert(err);
-      window.location.href = '/';
-    }
-  });
+  const paramsKeys = Object.keys(params);
+  if (paramsKeys.indexOf('room') !== -1 || paramsKeys.indexOf('name') !== -1) {
+    socket.emit('join', params, function(err) {
+      if (err) {
+        alert(err);
+        window.location.href = '/';
+      }
+    });
+  } else {
+    alert('Can\'t use chat without room and/or name');
+    window.location.href = '/';
+  }
 });
 
 socket.on('newMessage', function(message) {
